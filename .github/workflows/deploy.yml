@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: ./node_modules/.bin/vite build
+      - run: chmod +x ./node_modules/.bin/vite && ./node_modules/.bin/vite build
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
