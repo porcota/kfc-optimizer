@@ -55,7 +55,7 @@ export default function App() {
   }, [deferredCart])
 
   const filteredSets = useMemo(() => {
-    if (isLunch) return sets.filter(s => s.id.startsWith('lunch_'))
+    if (isLunch) return sets
     return sets.filter(s => !s.id.startsWith('lunch_'))
   }, [sets, isLunch])
 
