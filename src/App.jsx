@@ -275,25 +275,44 @@ export default function App() {
               <div className={styles.empty}><p>左側で商品を追加してください</p></div>
             ) : (
               <div style={{ opacity: isCalculating ? 0.4 : 1, transition: 'opacity 0.15s' }}>
-                {result.sets.map((s, si) => (
-                  <div key={`${s.id}-${si}`}>
-                    <div className={styles.resultRow}>
-                      <div className={styles.resultName}>
-                        {s.name}<span className={styles.setBadge}>SET</span>
+                <div className={styles.legend}>
+                  <span className={styles.legendChoice}>選択</span>
+                  <span className={styles.legendLabel}>注文時に選ぶもの</span>
+                </div>
+                {result.sets.map((s, si) => {
+                  const isLunchSet = s.id.startsWith('lunch_')
+                  const fixedItems = Object.entries(s.contains || {}).map(([id, qty]) => {
+                    const name = getItemName(id)
+                    return qty > 1 ? `${name}×${qty}` : name
+                  })
+                  return (
+                    <div key={`${s.id}-${si}`} className={styles.setBlock}>
+                      <div className={styles.resultRow}>
+                        <div className={styles.resultName}>
+                          {s.name}
+                          <span className={styles.setBadge}>SET</span>
+                          {isLunchSet && <span className={styles.lunchSetBadge}>ランチ</span>}
+                        </div>
+                        <span className={styles.resultQty}>×{s.count}</span>
+                        <span className={styles.resultPrice}>{(s.price * s.count).toLocaleString()}円</span>
                       </div>
-                      <span className={styles.resultQty}>×{s.count}</span>
-                      <span className={styles.resultPrice}>{(s.price * s.count).toLocaleString()}円</span>
+                      {fixedItems.length > 0 && (
+                        <div className={styles.detailRow}>
+                          <span className={styles.detailFixed}>{fixedItems.join('、')}</span>
+                        </div>
+                      )}
+                      {s.chosenSides?.length > 0 && (
+                        <div className={styles.detailRow}>
+                          {s.chosenSides.map((c, i) => {
+                            const name = getItemName(c.itemId)
+                            const label = c.extra > 0 ? `${name}（+${c.extra}円）` : name
+                            return <span key={i} className={styles.detailChoice}>{label}</span>
+                          })}
+                        </div>
+                      )}
                     </div>
-                    {s.chosenSides?.length > 0 && (
-                      <div className={styles.sideDetail}>
-                        サイド：{s.chosenSides.map((c, i) => {
-                          const name = getItemName(c.itemId)
-                          return c.extra > 0 ? `${name}（+${c.extra}円）` : name
-                        }).join('、')}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  )
+                })}
                 {result.singles.map(i => (
                   <div key={i.id} className={styles.resultRow}>
                     <span className={styles.resultName}>{i.name}</span>
