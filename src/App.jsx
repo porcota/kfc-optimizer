@@ -181,15 +181,19 @@ export default function App() {
                 return (
                   <button key={m.id} className={styles.memberTag}
                     onClick={() => setSelectedMember(m.id)}
-                    onDoubleClick={() => { setEditingMemberId(m.id); setEditingName(m.name) }}
-                    onContextMenu={e => { e.preventDefault(); setEditingMemberId(m.id); setEditingName(m.name) }}
+                    onMouseDown={e => {
+                      const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
+                      e.currentTarget._longpress = t
+                    }}
+                    onMouseUp={e => { clearTimeout(e.currentTarget._longpress) }}
+                    onMouseLeave={e => { clearTimeout(e.currentTarget._longpress) }}
                     onTouchStart={e => {
                       const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
                       e.currentTarget._longpress = t
                     }}
                     onTouchEnd={e => { clearTimeout(e.currentTarget._longpress) }}
                     onTouchMove={e => { clearTimeout(e.currentTarget._longpress) }}
-                    title="長押し（スマホ）またはダブルクリックで名前を変更"
+                    title="長押しで名前を変更"
                     style={active ? { background: c.bg, color: c.text, borderColor: c.border } : {}}>
                     {m.name}
                   </button>
@@ -199,7 +203,7 @@ export default function App() {
                 <div className={styles.addMemberInput}>
                   <input autoFocus value={newMember} onChange={e => setNewMember(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Enter') addMember(); if (e.key === 'Escape') setAddingMember(false) }}
-                    placeholder="名前を入力" style={{ width: 90, fontSize: 12 }} />
+                    placeholder="名前を入力" style={{ width: 90, fontSize: 13, height: 32, padding: '0 8px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
                   <button className={styles.miniBtn} onClick={addMember}>追加</button>
                 </div>
               ) : (
