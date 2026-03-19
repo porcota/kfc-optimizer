@@ -205,6 +205,7 @@ export default function App() {
                     onKeyDown={e => { if (e.key === 'Enter') addMember(); if (e.key === 'Escape') setAddingMember(false) }}
                     placeholder="名前を入力" style={{ width: 90, fontSize: 13, height: 32, padding: '0 8px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
                   <button className={styles.miniBtn} onClick={addMember}>追加</button>
+                  <button className={styles.miniBtn} onClick={() => { setAddingMember(false); setNewMember('') }}>キャンセル</button>
                 </div>
               ) : (
                 <button className={styles.addMemberBtn} onClick={() => setAddingMember(true)}>＋</button>
