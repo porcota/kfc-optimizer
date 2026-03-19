@@ -4,6 +4,8 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 2.5rem 1.25rem 5rem;
+  overflow-x: hidden;
+  width: 100%;
 }
 @media (max-width: 640px) {
   .page { padding: 1.25rem 1rem 5rem; }
@@ -38,7 +40,7 @@
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 640px) { .grid { grid-template-columns: 1fr; gap: 12px; } }
 
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; min-width: 0; width: 100%; }
 @media (max-width: 640px) { .card { padding: 1rem; border-radius: var(--radius-md); } }
 .cardHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .cardTitle { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; }
@@ -60,7 +62,7 @@
 .miniBtnDanger:hover { background: #fdf0f2; }
 
 /* 商品追加 */
-.addRow { display: flex; gap: 8px; margin-bottom: 14px; }
+.addRow { display: flex; gap: 8px; margin-bottom: 14px; width: 100%; }
 .itemSelect { flex: 1; min-width: 0; height: 44px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 0 8px; font-size: 16px; color: var(--text-primary); background: var(--surface); font-family: inherit; }
 @media (min-width: 641px) { .itemSelect { height: 34px; font-size: 13px; } }
 .addBtn { padding: 0 16px; height: 44px; background: #c8102e; color: #fff; border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
