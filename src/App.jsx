@@ -182,7 +182,14 @@ export default function App() {
                   <button key={m.id} className={styles.memberTag}
                     onClick={() => setSelectedMember(m.id)}
                     onDoubleClick={() => { setEditingMemberId(m.id); setEditingName(m.name) }}
-                    title="ダブルクリックで名前を変更"
+                    onContextMenu={e => { e.preventDefault(); setEditingMemberId(m.id); setEditingName(m.name) }}
+                    onTouchStart={e => {
+                      const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
+                      e.currentTarget._longpress = t
+                    }}
+                    onTouchEnd={e => { clearTimeout(e.currentTarget._longpress) }}
+                    onTouchMove={e => { clearTimeout(e.currentTarget._longpress) }}
+                    title="長押し（スマホ）またはダブルクリックで名前を変更"
                     style={active ? { background: c.bg, color: c.text, borderColor: c.border } : {}}>
                     {m.name}
                   </button>
