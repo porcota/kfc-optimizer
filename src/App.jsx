@@ -172,7 +172,7 @@ export default function App() {
                       <input autoFocus value={editingName}
                         onChange={e => setEditingName(e.target.value)}
                         onKeyDown={e => { if (e.key === 'Enter') renameMember(m.id); if (e.key === 'Escape') { setEditingMemberId(null) } }}
-                        style={{ width: 90, fontSize: 12 }} />
+                        style={{ width: 90, fontSize: 13, height: 32, padding: '0 8px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
                       <button className={styles.miniBtn} onClick={() => renameMember(m.id)}>確定</button>
                       <button className={styles.miniBtnDanger} onClick={() => { removeMember(m.id); setEditingMemberId(null) }}>削除</button>
                     </div>
