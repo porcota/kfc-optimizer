@@ -136,7 +136,7 @@ export default function App() {
           >
             <span className={styles.toggleKnob} />
           </button>
-          {isLunch && <span className={styles.lunchBadge}>〜15時</span>}
+          <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>〜15時</span>
         </div>
       </header>
 
