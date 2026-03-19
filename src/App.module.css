@@ -74,11 +74,12 @@
 .cartGroup:last-child { border-bottom: none; margin-bottom: 0; }
 .cartGroupHead { display: flex; align-items: center; gap: 6px; padding: 6px 0 4px; }
 .cartGroupName { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
-.cartRow { display: flex; align-items: center; gap: 7px; padding: 8px 0 8px 28px; border-bottom: 1px solid var(--border); }
+.cartRow { display: flex; align-items: center; gap: 6px; padding: 8px 0 8px 28px; border-bottom: 1px solid var(--border); min-width: 0; }
 .cartRow:last-child { border-bottom: none; }
 .avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
-.cartName { flex: 1; font-size: 13px; color: var(--text-primary); min-width: 0; }
+.cartName { flex: 1; font-size: 13px; color: var(--text-primary); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cartPrice { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+@media (max-width: 640px) { .cartPrice { display: none; } }
 .qtyCtrl { display: flex; align-items: center; gap: 4px; }
 .qBtn { width: 32px; height: 32px; border: 1px solid var(--border-strong); background: #fff; border-radius: var(--radius-sm); font-size: 15px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); cursor: pointer; font-family: inherit; flex-shrink: 0; }
 @media (min-width: 641px) { .qBtn { width: 24px; height: 24px; font-size: 13px; } }
@@ -91,12 +92,12 @@
 
 /* 結果 */
 .empty { display: flex; align-items: center; justify-content: center; padding: 3.5rem 1rem; font-size: 13px; color: var(--text-muted); text-align: center; }
-.resultRow { display: flex; align-items: center; gap: 6px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.resultRow { display: flex; align-items: center; gap: 6px; padding: 10px 0; border-bottom: 1px solid var(--border); min-width: 0; }
 .resultRow:last-of-type { border-bottom: none; }
 .resultName { flex: 1; font-size: 13px; color: var(--text-primary); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
 .setBadge { font-size: 10px; background: #fdf0f2; color: #a00c24; padding: 1px 6px; border-radius: 4px; font-weight: 700; }
 .resultQty { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
-.resultPrice { font-size: 13px; font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+.resultPrice { font-size: 13px; font-weight: 700; color: var(--text-primary); white-space: nowrap; flex-shrink: 0; }
 .totalRow { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 14px; border-top: 2px solid var(--border-strong); }
 .totalLabel { font-size: 14px; font-weight: 700; }
 .totalValue { font-family: 'Oswald', sans-serif; font-size: 28px; font-weight: 600; color: #c8102e; }
