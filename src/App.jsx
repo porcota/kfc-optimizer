@@ -128,14 +128,16 @@ export default function App() {
           <p className={styles.subtitle}>KFCの注文を賢く最安値で</p>
         </div>
         <div className={styles.lunchToggleWrap}>
-          <span className={styles.lunchToggleLabel}>ランチ</span>
-          <button
-            className={`${styles.toggle} ${isLunch ? styles.toggleOn : ''}`}
-            onClick={() => setIsLunch(v => !v)}
-            aria-label="ランチモード切替"
-          >
-            <span className={styles.toggleKnob} />
-          </button>
+          <div className={styles.lunchToggleRow}>
+            <span className={styles.lunchToggleLabel}>ランチ</span>
+            <button
+              className={`${styles.toggle} ${isLunch ? styles.toggleOn : ''}`}
+              onClick={() => setIsLunch(v => !v)}
+              aria-label="ランチモード切替"
+            >
+              <span className={styles.toggleKnob} />
+            </button>
+          </div>
           <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>〜15時</span>
         </div>
       </header>
