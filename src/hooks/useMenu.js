@@ -3,6 +3,8 @@ import { useState, useEffect, useCallback } from 'react'
 const ITEMS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrX3_eg_0IvXzIjd_DXh1fxEOC-v3y7TmkwGaEvW_aW2HvbVN86k477DlHpbYdKw/pub?gid=967377149&single=true&output=csv'
 const SETS_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrX3_eg_0IvXzIjd_DXh1fxEOC-v3y7TmkwGaEvW_aW2HvbVN86k477DlHpbYdKw/pub?gid=1362138471&single=true&output=csv'
 const SIDE_GROUPS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrX3_eg_0IvXzIjd_DXh1fxEOC-v3y7TmkwGaEvW_aW2HvbVN86k477DlHpbYdKw/pub?gid=990702601&single=true&output=csv'
+const DRIVE_API_KEY = 'AIzaSyABpO7flNb4KffvC9YxOW9LGUMs92PilSA'
+const SPREADSHEET_ID = '1K4KORd-HQRYjtSGpZ6zV6mN6ca2qxkb6'
 
 function parseCSV(text) {
   const lines = text.trim().split('\n')
@@ -93,7 +95,20 @@ export function useMenu() {
       setItems(parsedItems)
       setSets(parsedSets)
       setSideGroups(groups)
-      setFetchedAt(new Date())
+      // スプレッドシートの最終更新日を取得
+      try {
+        const driveRes = await fetch(
+          `https://www.googleapis.com/drive/v3/files/${SPREADSHEET_ID}?fields=modifiedTime&key=${DRIVE_API_KEY}`
+        )
+        const driveData = await driveRes.json()
+        if (driveData.modifiedTime) {
+          setFetchedAt(new Date(driveData.modifiedTime))
+        } else {
+          setFetchedAt(new Date())
+        }
+      } catch {
+        setFetchedAt(new Date())
+      }      
       setStatus('success')
     } catch (e) {
       setError(e.message)
