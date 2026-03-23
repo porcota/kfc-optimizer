@@ -303,10 +303,17 @@ export default function App() {
                       )}
                       {s.chosenSides?.length > 0 && (
                         <div className={styles.detailRow}>
-                          {s.chosenSides.map((c, i) => {
+                          {Object.entries(
+                            s.chosenSides.reduce((acc, c) => {
+                              const key = c.itemId + (c.extra || 0)
+                              acc[key] = acc[key] || { ...c, count: 0 }
+                              acc[key].count++
+                              return acc
+                            }, {})
+                          ).map(([key, c]) => {
                             const name = getItemName(c.itemId)
                             const label = c.extra > 0 ? `${name}（+${c.extra}円）` : name
-                            return <span key={i} className={styles.detailChoice}>{label}</span>
+                            return <span key={key} className={styles.detailChoice}>{c.count > 1 ? `${label}×${c.count}` : label}</span>
                           })}
                         </div>
                       )}
