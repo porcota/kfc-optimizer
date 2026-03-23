@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 
-const ITEMS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrX3_eg_0IvXzIjd_DXh1fxEOC-v3y7TmkwGaEvW_aW2HvbVN86k477DlHpbYdKw/pub?gid=967377149&single=true&output=csv'
-const SETS_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrX3_eg_0IvXzIjd_DXh1fxEOC-v3y7TmkwGaEvW_aW2HvbVN86k477DlHpbYdKw/pub?gid=1362138471&single=true&output=csv'
-const SIDE_GROUPS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTrX3_eg_0IvXzIjd_DXh1fxEOC-v3y7TmkwGaEvW_aW2HvbVN86k477DlHpbYdKw/pub?gid=990702601&single=true&output=csv'
+const ITEMS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=2114492706&single=true&output=csv'
+const SETS_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=28426279&single=true&output=csv'
+const SIDE_GROUPS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=449307324&single=true&output=csv'
 
 function parseCSV(text) {
   const lines = text.trim().split('\n')
