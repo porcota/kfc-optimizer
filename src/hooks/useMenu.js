@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 const ITEMS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=2114492706&single=true&output=csv'
 const SETS_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=28426279&single=true&output=csv'
 const SIDE_GROUPS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=449307324&single=true&output=csv'
+const UPDATED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC3hOwZ_rj3zgPy3LXJoqP0Ps857IBFPazOJVOnVE1U2ywvNXaIfoTeNdPMAUB8jyjEFtMxsBrMDxv/pub?gid=1549646750&single=true&output=csv'
 
 function parseCSV(text) {
   const lines = text.trim().split('\n')
@@ -58,7 +59,7 @@ export function useMenu() {
         fetch(SETS_URL).then(r => r.text()),
         hasSideGroups ? fetch(SIDE_GROUPS_URL).then(r => r.text()) : Promise.resolve(null),
       ]
-      const [itemsCSV, setsCSV, sideGroupsCSV] = await Promise.all(fetches)
+
 
       const parsedItems = parseCSV(itemsCSV)
         .map(r => ({ id: r['id'], name: r['商品名'], price: parseInt(r['価格（円）']) }))
@@ -93,7 +94,18 @@ export function useMenu() {
       setItems(parsedItems)
       setSets(parsedSets)
       setSideGroups(groups)
-      setFetchedAt(new Date())
+      // 更新日シートから日付を取得
+      try {
+        const rows = parseCSV(updatedCSV)
+        const updatedRow = rows.find(r => r['キー'] === 'updated')
+        if (updatedRow && updatedRow['値']) {
+          setFetchedAt(new Date(updatedRow['値']))
+        } else {
+          setFetchedAt(new Date())
+        }
+      } catch {
+        setFetchedAt(new Date())
+      }
       setStatus('success')
     } catch (e) {
       setError(e.message)
