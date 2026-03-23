@@ -53,13 +53,12 @@ export function useMenu() {
     setStatus('loading')
     setError(null)
     try {
-      const hasSideGroups = SIDE_GROUPS_URL !== 'REPLACE_WITH_SIDE_GROUPS_URL'
-      const fetches = [
+      const [itemsCSV, setsCSV, sideGroupsCSV, updatedCSV] = await Promise.all([
         fetch(ITEMS_URL).then(r => r.text()),
         fetch(SETS_URL).then(r => r.text()),
-        hasSideGroups ? fetch(SIDE_GROUPS_URL).then(r => r.text()) : Promise.resolve(null),
-      ]
-
+        fetch(SIDE_GROUPS_URL).then(r => r.text()),
+        fetch(UPDATED_URL).then(r => r.text()),
+      ])
 
       const parsedItems = parseCSV(itemsCSV)
         .map(r => ({ id: r['id'], name: r['商品名'], price: parseInt(r['価格（円）']) }))
@@ -78,7 +77,6 @@ export function useMenu() {
         })
         .filter(s => s.id && s.name && !isNaN(s.price))
 
-      // サイドグループ: { side: [{itemId, extra}, ...] }
       const groups = {}
       if (sideGroupsCSV) {
         parseCSV(sideGroupsCSV).forEach(r => {
@@ -94,6 +92,7 @@ export function useMenu() {
       setItems(parsedItems)
       setSets(parsedSets)
       setSideGroups(groups)
+
       // 更新日シートから日付を取得
       try {
         const rows = parseCSV(updatedCSV)
@@ -106,6 +105,7 @@ export function useMenu() {
       } catch {
         setFetchedAt(new Date())
       }
+
       setStatus('success')
     } catch (e) {
       setError(e.message)
