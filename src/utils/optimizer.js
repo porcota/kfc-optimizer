@@ -104,7 +104,7 @@ export function optimize(items, sets, qty, sideGroups = {}) {
               const chosen = chooseSides(groupItems, rem, fg.count, items)
               for (const c of chosen) {
                 cost += c.extra
-                rem[c.itemId] = (rem[c.itemId] || 0) - 1
+                if ((rem[c.itemId] || 0) > 0) rem[c.itemId]--
               }
             }
           }
@@ -152,7 +152,7 @@ export function optimize(items, sets, qty, sideGroups = {}) {
           const groupItems = sideGroups[fg.groupId] || []
           const chosen = chooseSides(groupItems, rem2, fg.count, items)
           for (const c of chosen) {
-            rem2[c.itemId] = (rem2[c.itemId] || 0) - 1
+            if ((rem2[c.itemId] || 0) > 0) rem2[c.itemId]--
             chosenSides.push(c)
           }
         }
