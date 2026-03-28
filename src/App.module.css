@@ -437,8 +437,42 @@
 
 .avatarEditWrap {
   display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 8px;
+}
+
+/* ===== 色スウォッチ ===== */
+.avatarEditTop {
+  display: flex;
   align-items: center;
   gap: 4px;
-  flex-shrink: 0;
-  margin-bottom: 15px;
+}
+
+.colorSwatches {
+  display: flex;
+  gap: 5px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.colorSwatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.1s, transform 0.1s;
+  padding: 0;
+}
+
+.colorSwatch:hover {
+  transform: scale(1.15);
 }

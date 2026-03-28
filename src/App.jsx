@@ -52,6 +52,7 @@ export default function App() {
   const [addingMember, setAddingMember] = useState(false)
   const [editingMemberId, setEditingMemberId] = useState(null)
   const [editingName, setEditingName] = useState('')
+  const [editingColorIdx, setEditingColorIdx] = useState(0)
   const [selectedMember, setSelectedMember] = useState(() => {
     try {
       const saved = localStorage.getItem('kenta-members')
@@ -129,22 +130,26 @@ export default function App() {
 
   const renameMember = (id) => {
     const name = editingName.trim()
-    if (name) setMembers(prev => prev.map(m => m.id === id ? { ...m, name } : m))
+    if (name) setMembers(prev => prev.map(m => m.id === id ? { ...m, name, colorIdx: editingColorIdx } : m))
     setEditingMemberId(null)
     setEditingName('')
+    setEditingColorIdx(0)
   }
 
   const addMember = () => {
     const name = newMember.trim() || `メンバー${members.length + 1}`
     const id = Date.now()
-    setMembers(prev => [...prev, { id, name }])
+    const usedIdxs = members.map(m => m.colorIdx ?? members.indexOf(m))
+    const colorIdx = [0,1,2,3,4,5].find(i => !usedIdxs.includes(i)) ?? members.length % COLORS.length
+    setMembers(prev => [...prev, { id, name, colorIdx }])
     setSelectedMember(id)
     setNewMember('')
     setAddingMember(false)
   }
 
   const getMemberColor = (memberId) => {
-    const idx = members.findIndex(m => m.id === memberId) % COLORS.length
+    const member = members.find(m => m.id === memberId)
+    const idx = (member?.colorIdx ?? members.findIndex(m => m.id === memberId)) % COLORS.length
     return { bg: BG_COLORS[idx], text: TEXT_COLORS[idx], border: COLORS[idx] }
   }
 
@@ -202,12 +207,24 @@ export default function App() {
                 if (editingMemberId === m.id) {
                   return (
                     <div key={m.id} className={styles.avatarEditWrap}>
-                      <input autoFocus value={editingName}
-                        onChange={e => setEditingName(e.target.value)}
-                        onKeyDown={e => { if (e.key === 'Enter') renameMember(m.id); if (e.key === 'Escape') setEditingMemberId(null) }}
-                        style={{ width: 80, fontSize: 12, height: 28, padding: '0 7px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
-                      <button className={styles.miniBtn} onClick={() => renameMember(m.id)}>確定</button>
-                      <button className={styles.miniBtnDanger} onClick={() => { removeMember(m.id); setEditingMemberId(null) }}>削除</button>
+                      <div className={styles.avatarEditTop}>
+                        <input autoFocus value={editingName}
+                          onChange={e => setEditingName(e.target.value)}
+                          onKeyDown={e => { if (e.key === 'Enter') renameMember(m.id); if (e.key === 'Escape') setEditingMemberId(null) }}
+                          style={{ width: 80, fontSize: 12, height: 28, padding: '0 7px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
+                        <button className={styles.miniBtn} onClick={() => renameMember(m.id)}>確定</button>
+                        <button className={styles.miniBtnDanger} onClick={() => { removeMember(m.id); setEditingMemberId(null) }}>削除</button>
+                      </div>
+                      <div className={styles.colorSwatches}>
+                        {COLORS.map((color, idx) => (
+                          <button key={idx} className={styles.colorSwatch}
+                            style={{ background: BG_COLORS[idx], borderColor: editingColorIdx === idx ? COLORS[idx] : 'transparent' }}
+                            onClick={() => setEditingColorIdx(idx)}
+                          >
+                            <span style={{ width: 10, height: 10, borderRadius: '50%', background: color, display: 'block' }} />
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   )
                 }
@@ -215,13 +232,13 @@ export default function App() {
                   <div key={m.id} className={`${styles.avatarWrap} ${active ? styles.avatarWrapActive : ''}`}
                     onClick={() => setSelectedMember(m.id)}
                     onMouseDown={e => {
-                      const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
+                      const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name); setEditingColorIdx(m.colorIdx ?? members.indexOf(m)) }, 600)
                       e.currentTarget._longpress = t
                     }}
                     onMouseUp={e => clearTimeout(e.currentTarget._longpress)}
                     onMouseLeave={e => clearTimeout(e.currentTarget._longpress)}
                     onTouchStart={e => {
-                      const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
+                      const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name); setEditingColorIdx(m.colorIdx ?? members.indexOf(m)) }, 600)
                       e.currentTarget._longpress = t
                     }}
                     onTouchEnd={e => clearTimeout(e.currentTarget._longpress)}
