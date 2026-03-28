@@ -174,7 +174,7 @@ export default function App() {
               <span className={styles.toggleKnob} />
             </button>
           </div>
-          <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>〜15時</span>
+          <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>10時〜15時</span>
         </div>
       </header>
 
@@ -382,7 +382,7 @@ export default function App() {
               <span className={styles.cardTitle}>最適な注文構成</span>
               {isCalculating && <span className={styles.calcBadge}>計算中…</span>}
               <div className={styles.lunchToggleMobile}>
-                <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>〜15時</span>
+                <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>10時〜15時</span>
                 <div className={styles.lunchToggleRow}>
                   <span className={styles.lunchToggleLabel}>ランチ</span>
                   <button
