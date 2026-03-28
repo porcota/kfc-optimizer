@@ -28,11 +28,16 @@ function chooseSides(groupItems, desired, count, items) {
 
   for (let i = 0; i < count; i++) {
     // まだdesiredに残っている候補を優先
-    const best = candidates.find(c => (remDesired[c.itemId] || 0) > 0)
-      || candidates[0]
-    if (!best) break
-    chosen.push(best)
-    if (remDesired[best.itemId] > 0) remDesired[best.itemId]--
+    const fromDesired = candidates.find(c => (remDesired[c.itemId] || 0) > 0)
+    if (fromDesired) {
+      chosen.push(fromDesired)
+      remDesired[fromDesired.itemId]--
+    } else {
+      // desiredが尽きたら追加料金が最安の非desiredアイテムを選ぶ
+      const fallback = candidates.find(c => !c.inDesired) ?? candidates[0]
+      if (!fallback) break
+      chosen.push(fallback)
+    }
   }
 
   return chosen
@@ -75,7 +80,7 @@ export function optimize(items, sets, qty, sideGroups = {}) {
       if (desired[k] > 0) m = Math.max(m, Math.ceil(desired[k] / v))
     // freeGroupsのみのセット（チキンパック等）は最大数を欲しいチキン数から計算
     if (m === 0 && set.freeGroups?.length > 0) m = 1
-    return Math.min(m + 1, 4)
+    return m + 1
   })
 
   let best = Infinity
