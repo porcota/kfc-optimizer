@@ -19,10 +19,6 @@
 @media (max-width: 640px) {
   .logoWrap { width: 40px; height: 40px; }
 }
-.logoText { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; color: #fff; letter-spacing: .05em; }
-@media (max-width: 640px) {
-  .logoText { font-size: 12px; }
-}
 .title { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: .02em; }
 .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
 @media (max-width: 640px) {

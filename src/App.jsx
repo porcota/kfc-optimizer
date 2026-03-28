@@ -161,10 +161,15 @@ export default function App() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.logoWrap}><span className={styles.logoText}>KFC</span></div>
+        <div className={styles.logoWrap}>
+          <svg width="52" height="52" viewBox="0 0 52 52">
+            <text x="26" y="26" textAnchor="middle" fontFamily="Georgia, serif" fontSize="13" fontWeight="700" fill="white" letterSpacing="1.5">KFC</text>
+            <text x="26" y="41" textAnchor="middle" fontFamily="'Hiragino Sans', sans-serif" fontSize="14" fontWeight="700" fill="white">算</text>
+          </svg>
+        </div>
         <div style={{ flex: 1 }}>
-          <h1 className={styles.title}>ケンタ賢者</h1>
-          <p className={styles.subtitle}>KFCの注文を賢く最安値で</p>
+          <h1 className={styles.title}>まとめてケンタさん</h1>
+          <p className={styles.subtitle}>みんなの注文、最安セットで</p>
         </div>
       </header>
 
