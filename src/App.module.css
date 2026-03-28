@@ -77,14 +77,14 @@
 @media (max-width: 640px) {
   .cartSteps { display: block; padding: 12px 2px 14px; border-top: 1px solid var(--border); }
 }
-.cartStepsTitle { font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: .07em; margin-bottom: 10px; }
-.cartStep { display: flex; gap: 9px; align-items: flex-start; }
+.cartStepsTitle { font-size: 12px; font-weight: 700; color: var(--text-muted); letter-spacing: .07em; margin-bottom: 12px; }
+.cartStep { display: flex; gap: 11px; align-items: flex-start; }
 .cartStepLine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.cartStepDot { width: 18px; height: 18px; border-radius: 50%; background: #fdf0f2; border: 1.5px solid #f5c0ca; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #a00c24; }
-.cartStepConnector { width: 1.5px; height: 16px; background: var(--border); }
-.cartStepBody { flex: 1; padding-top: 1px; padding-bottom: 6px; }
-.cartStepName { font-size: 12px; font-weight: 700; color: var(--text-primary); }
-.cartStepDesc { font-size: 10px; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
+.cartStepDot { width: 22px; height: 22px; border-radius: 50%; background: #fdf0f2; border: 1.5px solid #f5c0ca; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #a00c24; }
+.cartStepConnector { width: 1.5px; height: 18px; background: var(--border); }
+.cartStepBody { flex: 1; padding-top: 2px; padding-bottom: 8px; }
+.cartStepName { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.cartStepDesc { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
 .cartGroup { margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
 @media (max-width: 640px) {
   .cartGroupHead { padding: 8px 0 4px; }
@@ -500,11 +500,11 @@
 /* ===== 空状態ステップガイド ===== */
 .emptySteps { padding: 1.25rem 1.5rem; }
 @media (max-width: 640px) { .emptySteps { display: none; } }
-.emptyStepsTitle { font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 12px; }
-.emptyStep { display: flex; gap: 10px; align-items: flex-start; }
+.emptyStepsTitle { font-size: 12px; color: var(--text-muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 12px; }
+.emptyStep { display: flex; gap: 11px; align-items: flex-start; }
 .emptyStepLine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.emptyStepDot { width: 20px; height: 20px; border-radius: 50%; background: #fdf0f2; border: 1.5px solid #f5c0ca; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #a00c24; }
+.emptyStepDot { width: 22px; height: 22px; border-radius: 50%; background: #fdf0f2; border: 1.5px solid #f5c0ca; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #a00c24; }
 .emptyStepConnector { width: 1.5px; height: 18px; background: var(--border); }
-.emptyStepBody { flex: 1; padding-top: 2px; padding-bottom: 6px; }
-.emptyStepName { font-size: 12px; font-weight: 700; color: var(--text-primary); }
-.emptyStepDesc { font-size: 11px; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
+.emptyStepBody { flex: 1; padding-top: 2px; padding-bottom: 8px; }
+.emptyStepName { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.emptyStepDesc { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
