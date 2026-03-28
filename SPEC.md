@@ -1,12 +1,12 @@
-# ケンタ賢者 — 仕様書
+# まとめてケンタさん — 仕様書
 
-> KFCの注文を最安値で組み立てるWebアプリ
+> みんなの注文、最安セットで。
 
 ---
 
 ## 概要
 
-複数人でKFCを注文するとき、単品とセットを最適に組み合わせて合計金額を最小化する。  
+複数人でKFCを注文するとき、単品とセットを最適に組み合わせて合計金額を最小化する。
 メニューデータはGoogleスプレッドシート（CSV公開）から毎回取得する。
 
 ---
@@ -21,6 +21,7 @@
 | 状態管理 | React hooks のみ（外部ライブラリなし） |
 | 永続化 | localStorage |
 | データソース | Google スプレッドシート（CSV） |
+| ホスティング | GitHub Pages |
 
 ---
 
@@ -49,7 +50,7 @@ public/
 GoogleスプレッドシートのCSVから取得。
 
 ```js
-{ id: string, name: string, price: number }
+{ id: string, name: string, price: number, category: string }
 ```
 
 ### sets（セットメニュー）
@@ -73,7 +74,7 @@ GoogleスプレッドシートのCSVから取得。
 
 ### メンバー
 ```js
-{ id: number, name: string }
+{ id: number, name: string, colorIdx: number }
 ```
 
 ### カート
@@ -89,7 +90,7 @@ GoogleスプレッドシートのCSVから取得。
 
 | シート | 内容 |
 |--------|------|
-| ITEMS_URL | 単品メニュー（id, 商品名, 価格） |
+| ITEMS_URL | 単品メニュー（id, 商品名, 価格, カテゴリ） |
 | SETS_URL | セットメニュー（id, セット名, 価格, 含まれる単品） |
 | SIDE_GROUPS_URL | サイド選択肢（グループid, 商品id, 追加料金） |
 | UPDATED_URL | メニュー更新日（キー=updated, 値=日付） |
@@ -134,29 +135,35 @@ GoogleスプレッドシートのCSVから取得。
 ## 画面構成
 
 ### ヘッダー
-- ロゴ・タイトル（ケンタ賢者）
-- ランチモードトグル（ONでランチセット対象に）
+- ロゴ（SVG: KFC＋算）・アプリ名（まとめてケンタさん）・サブタイトル
 
 ### ステータス表示
 - `loading`: スピナー
 - `error`: エラーメッセージ＋再試行ボタン
 
-### メインコンテンツ（2カラムグリッド）
+### メインコンテンツ（2カラムグリッド、スマホは1カラム）
 
 **左カード：注文を追加**
-- メンバー選択タブ（色分け表示）
-  - タップで選択、長押し（600ms）で名前変更・削除モード
+- メニュー更新日タグ
+- アバター式メンバー選択
+  - タップで選択、長押し（600ms）で名前変更・削除・カラー変更モード
   - ＋ボタンでメンバー追加
-- 商品セレクト＋「追加」ボタン
+- 2ペイン商品セレクター
+  - 左ペイン：カテゴリ選択（チキン／バーガー／サイド／ドリンク／キッズ）
+  - 右ペイン：商品リスト（ドリンクはS/M/Lタブで絞り込み）
+  - 期間限定商品は「限定」バッジを表示
+  - 下部：選択商品名・数量調整（−/＋）・「追加」ボタン
 - カートリスト（メンバーごとにグループ表示）
-  - 数量変更（−/＋）
-  - ×で削除
+  - 商品名（期間限定は「限定」バッジ付き）・数量変更・×削除
+  - スマホでカートが空のとき「使い方」ステップガイドを表示
 - 「すべてクリア」ボタン
 
 **右カード：最適な注文構成**
-- 最適化結果の表示
+- タイトル横にランチトグル（ランチ ON/OFF）＋「10時〜15時」バッジ
+- カートが空のとき：使い方ステップガイドを表示（PCのみ）
+- 最適化結果
   - セット：名前・SET/ランチバッジ・固定アイテム・サイド選択内容・個数・金額
-  - 単品：名前・個数・金額
+  - 単品：名前（期間限定は「限定」バッジ付き）・個数・金額
   - 合計金額
   - 節約額（または「単品注文が最安です」）
 - `isCalculating` 中は透明度を下げて表示
@@ -171,15 +178,19 @@ GoogleスプレッドシートのCSVから取得。
 
 | 状態 | 型 | 初期値 | 永続化 |
 |------|----|--------|--------|
-| `members` | Member[] | `[{id:1, name:'メンバー1'}]` | localStorage: `kenta-members` |
+| `members` | Member[] | `[{id:1, name:'メンバー1', colorIdx:0}]` | localStorage: `kenta-members` |
 | `cart` | CartEntry[] | `[]` | localStorage: `kenta-cart` |
 | `selectedMember` | number | 最初のメンバーのid | なし |
 | `selectedItem` | string\|null | null | なし |
 | `isLunch` | boolean | false | なし |
+| `activeCat` | string | `'chicken'` | なし |
+| `drinkSize` | string | `'S'` | なし |
+| `selectorQty` | number | 1 | なし |
 | `addingMember` | boolean | false | なし |
 | `editingMemberId` | number\|null | null | なし |
-| `newMember` | string | '' | なし |
 | `editingName` | string | '' | なし |
+| `editingColorIdx` | number | 0 | なし |
+| `newMember` | string | '' | なし |
 
 ### 重要なmemo計算
 - `qty`: カートからitemId別の合計数量を計算（`useDeferredValue`でdeferredCartを使用）
@@ -190,7 +201,7 @@ GoogleスプレッドシートのCSVから取得。
 
 ## カラーテーマ（メンバー色）
 
-6色のローテーション。メンバーの並び順インデックスで決定。
+6色のローテーション。`colorIdx` で決定（メンバー追加時に未使用の色を自動割り当て）。
 
 ```js
 COLORS     = ['#378ADD','#1D9E75','#BA7517','#D4537E','#7F77DD','#D85A30']  // ボーダー

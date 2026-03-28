@@ -53,8 +53,8 @@ test('アプリが正常に起動する', async ({ page }) => {
   await page.goto('/')
 
   // ヘッダーが表示される
-  await expect(page.getByText('ケンタ賢者')).toBeVisible()
-  await expect(page.getByText('KFCの注文を賢く最安値で')).toBeVisible()
+  await expect(page.getByText('まとめてケンタさん')).toBeVisible()
+  await expect(page.getByText('みんなの注文、最安セットで')).toBeVisible()
 
   // メニュー読み込み後にメインUIが表示される
   await expect(page.getByText('注文を追加')).toBeVisible()

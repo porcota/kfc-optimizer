@@ -1,7 +1,7 @@
 {
-  "name": "ケンタ賢者",
-  "short_name": "ケンタ賢者",
-  "description": "KFCの注文を賢く最安値で",
+  "name": "まとめてケンタさん",
+  "short_name": "ケンタさん",
+  "description": "みんなの注文、最安セットで",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f7f5f0",
