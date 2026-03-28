@@ -72,6 +72,19 @@
 /* カートリスト */
 .cartList { display: flex; flex-direction: column; min-height: 60px; }
 .cartEmpty { padding: 2rem 0; text-align: center; font-size: 13px; color: var(--text-muted); }
+@media (max-width: 640px) { .cartEmpty { display: none; } }
+.cartSteps { display: none; }
+@media (max-width: 640px) {
+  .cartSteps { display: block; padding: 12px 2px 14px; border-top: 1px solid var(--border); }
+}
+.cartStepsTitle { font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: .07em; margin-bottom: 10px; }
+.cartStep { display: flex; gap: 9px; align-items: flex-start; }
+.cartStepLine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.cartStepDot { width: 18px; height: 18px; border-radius: 50%; background: #fdf0f2; border: 1.5px solid #f5c0ca; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #a00c24; }
+.cartStepConnector { width: 1.5px; height: 16px; background: var(--border); }
+.cartStepBody { flex: 1; padding-top: 1px; padding-bottom: 6px; }
+.cartStepName { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+.cartStepDesc { font-size: 10px; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
 .cartGroup { margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
 @media (max-width: 640px) {
   .cartGroupHead { padding: 8px 0 4px; }

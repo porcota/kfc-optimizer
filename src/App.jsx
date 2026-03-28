@@ -328,7 +328,28 @@ export default function App() {
 
             <div className={styles.cartList}>
               {cart.length === 0 ? (
+                <>
                 <div className={styles.cartEmpty}>商品を追加してください</div>
+                <div className={styles.cartSteps}>
+                  <div className={styles.cartStepsTitle}>使い方</div>
+                  {[
+                    { n: 1, title: 'メンバーを選ぶ',      desc: '誰の注文か選択してから商品を追加' },
+                    { n: 2, title: '商品をカートに追加',   desc: 'カテゴリから商品を選んで追加ボタン' },
+                    { n: 3, title: '最安の注文構成を確認', desc: '下にスクロールすると結果が出る' },
+                  ].map((s, i, arr) => (
+                    <div key={s.n} className={styles.cartStep}>
+                      <div className={styles.cartStepLine}>
+                        <div className={styles.cartStepDot}>{s.n}</div>
+                        {i < arr.length - 1 && <div className={styles.cartStepConnector} />}
+                      </div>
+                      <div className={styles.cartStepBody}>
+                        <div className={styles.cartStepName}>{s.title}</div>
+                        <div className={styles.cartStepDesc}>{s.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                </>
               ) : (
                 members.map(m => {
                   const entries = cart.filter(c => c.memberId === m.id)
