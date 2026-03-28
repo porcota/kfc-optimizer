@@ -499,6 +499,7 @@
 
 /* ===== 空状態ステップガイド ===== */
 .emptySteps { padding: 1.25rem 1.5rem; }
+@media (max-width: 640px) { .emptySteps { display: none; } }
 .emptyStepsTitle { font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 12px; }
 .emptyStep { display: flex; gap: 10px; align-items: flex-start; }
 .emptyStepLine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
