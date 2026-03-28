@@ -82,7 +82,7 @@
 .cartRow { display: flex; align-items: center; gap: 6px; padding: 8px 0 8px 28px; border-bottom: 1px solid var(--border); min-width: 0; }
 .cartRow:last-child { border-bottom: none; }
 .avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
-.cartName { flex: 1; font-size: 13px; color: var(--text-primary); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cartName { flex: 1; font-size: 13px; color: var(--text-primary); min-width: 0; }
 .cartPrice { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
 @media (max-width: 640px) { .cartPrice { display: none; } }
 .qtyCtrl { display: flex; align-items: center; gap: 4px; }
@@ -483,3 +483,14 @@
 .colorSwatch:hover {
   transform: scale(1.15);
 }
+
+/* ===== 空状態ステップガイド ===== */
+.emptySteps { padding: 1.25rem 1.5rem; }
+.emptyStepsTitle { font-size: 11px; color: var(--text-muted); font-weight: 700; letter-spacing: .06em; margin-bottom: 12px; }
+.emptyStep { display: flex; gap: 10px; align-items: flex-start; }
+.emptyStepLine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.emptyStepDot { width: 20px; height: 20px; border-radius: 50%; background: #fdf0f2; border: 1.5px solid #f5c0ca; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #a00c24; }
+.emptyStepConnector { width: 1.5px; height: 18px; background: var(--border); }
+.emptyStepBody { flex: 1; padding-top: 2px; padding-bottom: 6px; }
+.emptyStepName { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+.emptyStepDesc { font-size: 11px; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }

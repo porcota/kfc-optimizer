@@ -153,7 +153,10 @@ export default function App() {
     return { bg: BG_COLORS[idx], text: TEXT_COLORS[idx], border: COLORS[idx] }
   }
 
-  const getItemName = (itemId) => items.find(i => i.id === itemId)?.name || ''
+  const getItemName = (itemId) => {
+    const name = items.find(i => i.id === itemId)?.name || ''
+    return name.replace(/（期間限定）/g, '')
+  }
 
   return (
     <div className={styles.page}>
@@ -343,7 +346,12 @@ export default function App() {
                         const item = items.find(i => i.id === entry.itemId)
                         return (
                           <div key={entry.id} className={styles.cartRow}>
-                            <span className={styles.cartName}>{getItemName(entry.itemId)}</span>
+                            <span className={styles.cartName}>
+                              {getItemName(entry.itemId)}
+                              {items.find(i => i.id === entry.itemId)?.name.includes('期間限定') && (
+                                <span className={styles.limitedBadge}>限定</span>
+                              )}
+                            </span>
                             <span className={styles.cartPrice}>{((item?.price || 0) * entry.qty).toLocaleString()}円</span>
                             <div className={styles.qtyCtrl}>
                               <button className={styles.qBtn} onClick={() => changeQty(entry.id, -1)}>−</button>
@@ -384,7 +392,25 @@ export default function App() {
             </div>
 
             {!result || cart.length === 0 ? (
-              <div className={styles.empty}><p>左側で商品を追加してください</p></div>
+              <div className={styles.emptySteps}>
+                <p className={styles.emptyStepsTitle}>使い方</p>
+                {[
+                  { n: 1, title: 'メンバーを選ぶ',      desc: '誰の注文か選択してから商品を追加' },
+                  { n: 2, title: '商品をカートに追加',   desc: 'カテゴリから商品を選んで追加ボタン' },
+                  { n: 3, title: '最安の注文構成を確認', desc: 'セットと単品の最適な組み合わせを自動計算' },
+                ].map((s, i, arr) => (
+                  <div key={s.n} className={styles.emptyStep}>
+                    <div className={styles.emptyStepLine}>
+                      <div className={styles.emptyStepDot}>{s.n}</div>
+                      {i < arr.length - 1 && <div className={styles.emptyStepConnector} />}
+                    </div>
+                    <div className={styles.emptyStepBody}>
+                      <div className={styles.emptyStepName}>{s.title}</div>
+                      <div className={styles.emptyStepDesc}>{s.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             ) : (
               <div style={{ opacity: isCalculating ? 0.4 : 1, transition: 'opacity 0.15s' }}>
                 <div className={styles.legend}>
@@ -434,7 +460,10 @@ export default function App() {
                 })}
                 {result.singles.map(i => (
                   <div key={i.id} className={styles.resultRow}>
-                    <span className={styles.resultName}>{i.name}</span>
+                    <span className={styles.resultName}>
+                      {i.name.replace(/（期間限定）/g, '')}
+                      {i.name.includes('期間限定') && <span className={styles.limitedBadge}>限定</span>}
+                    </span>
                     <span className={styles.resultQty}>×{i.count}</span>
                     <span className={styles.resultPrice}>{(i.price * i.count).toLocaleString()}円</span>
                   </div>
