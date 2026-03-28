@@ -163,19 +163,6 @@ export default function App() {
           <h1 className={styles.title}>ケンタ賢者</h1>
           <p className={styles.subtitle}>KFCの注文を賢く最安値で</p>
         </div>
-        <div className={styles.lunchToggleWrap}>
-          <div className={styles.lunchToggleRow}>
-            <span className={styles.lunchToggleLabel}>ランチ</span>
-            <button
-              className={`${styles.toggle} ${isLunch ? styles.toggleOn : ''}`}
-              onClick={() => setIsLunch(v => !v)}
-              aria-label="ランチモード切替"
-            >
-              <span className={styles.toggleKnob} />
-            </button>
-          </div>
-          <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>10時〜15時</span>
-        </div>
       </header>
 
       {status === 'loading' && (
