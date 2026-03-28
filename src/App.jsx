@@ -378,6 +378,19 @@ export default function App() {
           </div>
 
           <div className={styles.card}>
+            <div className={styles.lunchToggleMobile}>
+              <div className={styles.lunchToggleRow}>
+                <span className={styles.lunchToggleLabel}>ランチ</span>
+                <button
+                  className={`${styles.toggle} ${isLunch ? styles.toggleOn : ''}`}
+                  onClick={() => setIsLunch(v => !v)}
+                  aria-label="ランチモード切替"
+                >
+                  <span className={styles.toggleKnob} />
+                </button>
+              </div>
+              <span className={styles.lunchBadge} style={{ visibility: isLunch ? 'visible' : 'hidden' }}>〜15時</span>
+            </div>
             <div className={styles.cardHeader}>
               <span className={styles.cardTitle}>最適な注文構成</span>
               {isCalculating && <span className={styles.calcBadge}>計算中…</span>}
