@@ -195,53 +195,59 @@ export default function App() {
               <span className={styles.freshTag}>{fetchedLabel}</span>
             </div>
 
-            <div className={styles.memberRow}>
+            <div className={styles.avatarRow}>
               {members.map((m) => {
                 const c = getMemberColor(m.id)
                 const active = selectedMember === m.id
                 if (editingMemberId === m.id) {
                   return (
-                    <div key={m.id} className={styles.addMemberInput}>
+                    <div key={m.id} className={styles.avatarEditWrap}>
                       <input autoFocus value={editingName}
                         onChange={e => setEditingName(e.target.value)}
-                        onKeyDown={e => { if (e.key === 'Enter') renameMember(m.id); if (e.key === 'Escape') { setEditingMemberId(null) } }}
-                        style={{ width: 90, fontSize: 13, height: 32, padding: '0 8px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
+                        onKeyDown={e => { if (e.key === 'Enter') renameMember(m.id); if (e.key === 'Escape') setEditingMemberId(null) }}
+                        style={{ width: 80, fontSize: 12, height: 28, padding: '0 7px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
                       <button className={styles.miniBtn} onClick={() => renameMember(m.id)}>確定</button>
                       <button className={styles.miniBtnDanger} onClick={() => { removeMember(m.id); setEditingMemberId(null) }}>削除</button>
                     </div>
                   )
                 }
                 return (
-                  <button key={m.id} className={styles.memberTag}
+                  <div key={m.id} className={`${styles.avatarWrap} ${active ? styles.avatarWrapActive : ''}`}
                     onClick={() => setSelectedMember(m.id)}
                     onMouseDown={e => {
                       const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
                       e.currentTarget._longpress = t
                     }}
-                    onMouseUp={e => { clearTimeout(e.currentTarget._longpress) }}
-                    onMouseLeave={e => { clearTimeout(e.currentTarget._longpress) }}
+                    onMouseUp={e => clearTimeout(e.currentTarget._longpress)}
+                    onMouseLeave={e => clearTimeout(e.currentTarget._longpress)}
                     onTouchStart={e => {
                       const t = setTimeout(() => { setEditingMemberId(m.id); setEditingName(m.name) }, 600)
                       e.currentTarget._longpress = t
                     }}
-                    onTouchEnd={e => { clearTimeout(e.currentTarget._longpress) }}
-                    onTouchMove={e => { clearTimeout(e.currentTarget._longpress) }}
-                    title="長押しで名前を変更"
-                    style={active ? { background: c.bg, color: c.text, borderColor: c.border } : {}}>
-                    {m.name}
-                  </button>
+                    onTouchEnd={e => clearTimeout(e.currentTarget._longpress)}
+                    onTouchMove={e => clearTimeout(e.currentTarget._longpress)}
+                    title="長押しで名前を変更・削除"
+                  >
+                    <div className={styles.avatarCircle}
+                      style={{ background: c.bg, color: c.text, borderColor: active ? c.border : 'transparent' }}>
+                      {m.name.slice(0, 1)}
+                    </div>
+                    <span className={styles.avatarName} style={active ? { color: c.text, fontWeight: 700 } : {}}>
+                      {m.name}
+                    </span>
+                  </div>
                 )
               })}
               {addingMember ? (
-                <div className={styles.addMemberInput}>
+                <div className={styles.avatarEditWrap}>
                   <input autoFocus value={newMember} onChange={e => setNewMember(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Enter') addMember(); if (e.key === 'Escape') setAddingMember(false) }}
-                    placeholder="名前を入力" style={{ width: 90, fontSize: 13, height: 32, padding: '0 8px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
+                    placeholder="名前" style={{ width: 80, fontSize: 12, height: 28, padding: '0 7px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', fontFamily: 'inherit' }} />
                   <button className={styles.miniBtn} onClick={addMember}>追加</button>
-                  <button className={styles.miniBtn} onClick={() => { setAddingMember(false); setNewMember('') }}>キャンセル</button>
+                  <button className={styles.miniBtn} onClick={() => { setAddingMember(false); setNewMember('') }}>×</button>
                 </div>
               ) : (
-                <button className={styles.addMemberBtn} onClick={() => setAddingMember(true)}>＋</button>
+                <button className={styles.avatarAddBtn} onClick={() => setAddingMember(true)}>＋</button>
               )}
             </div>
 
