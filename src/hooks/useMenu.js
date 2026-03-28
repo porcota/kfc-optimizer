@@ -61,7 +61,7 @@ export function useMenu() {
       ])
 
       const parsedItems = parseCSV(itemsCSV)
-        .map(r => ({ id: r['id'], name: r['商品名'], price: parseInt(r['価格（円）']) }))
+        .map(r => ({ id: r['id'], name: r['商品名'], price: parseInt(r['価格（円）']), category: r['カテゴリ'] }))
         .filter(i => i.id && i.name && !isNaN(i.price))
 
       const parsedSets = parseCSV(setsCSV)

@@ -7,6 +7,33 @@ const COLORS = ['#378ADD','#1D9E75','#BA7517','#D4537E','#7F77DD','#D85A30']
 const BG_COLORS = ['#E6F1FB','#E1F5EE','#FAEEDA','#FBEAF0','#EEEDFE','#FAECE7']
 const TEXT_COLORS = ['#0C447C','#085041','#633806','#72243E','#3C3489','#712B13']
 
+const CATS = [
+  { id: 'chicken', label: 'チキン',   icon: '🍗' },
+  { id: 'burger',  label: 'バーガー', icon: '🍔' },
+  { id: 'side',    label: 'サイド',   icon: '🥗' },
+  { id: 'drink',   label: 'ドリンク', icon: '🥤' },
+  { id: 'kids',    label: 'キッズ',   icon: '🧒' },
+]
+
+// スプレッドシートのカテゴリ列 → CATS.id のマッピング
+const CATEGORY_MAP = {
+  'チキン':   'chicken',
+  'バーガー': 'burger',
+  'サイド':   'side',
+  'ドリンク': 'drink',
+  'キッズ':   'kids',
+}
+
+function getItemCat(item) {
+  return CATEGORY_MAP[item.category] ?? 'side'
+}
+
+function getDrinkSize(id) {
+  if (id.endsWith('_l')) return 'L'
+  if (id.endsWith('_m')) return 'M'
+  return 'S'
+}
+
 export default function App() {
   const { items, sets, sideGroups, status, error, fetchedAt, reload } = useMenu()
   const [members, setMembers] = useState(() => {
@@ -34,6 +61,9 @@ export default function App() {
   })
   const [selectedItem, setSelectedItem] = useState(null)
   const [isLunch, setIsLunch] = useState(false)
+  const [activeCat, setActiveCat] = useState('chicken')
+  const [drinkSize, setDrinkSize] = useState('S')
+  const [selectorQty, setSelectorQty] = useState(1)
 
   useEffect(() => {
     try { localStorage.setItem('kenta-members', JSON.stringify(members)) } catch {}
@@ -72,10 +102,11 @@ export default function App() {
     if (!selectedItem) return
     const existing = cart.findIndex(c => c.memberId === selectedMember && c.itemId === selectedItem)
     if (existing >= 0) {
-      setCart(prev => prev.map((c, i) => i === existing ? { ...c, qty: c.qty + 1 } : c))
+      setCart(prev => prev.map((c, i) => i === existing ? { ...c, qty: c.qty + selectorQty } : c))
     } else {
-      setCart(prev => [...prev, { id: Date.now(), memberId: selectedMember, itemId: selectedItem, qty: 1 }])
+      setCart(prev => [...prev, { id: Date.now(), memberId: selectedMember, itemId: selectedItem, qty: selectorQty }])
     }
+    setSelectorQty(1)
   }
 
   const changeQty = (id, delta) => {
@@ -214,14 +245,72 @@ export default function App() {
               )}
             </div>
 
-            <div className={styles.addRow}>
-              <select className={styles.itemSelect} value={selectedItem || ''} onChange={e => setSelectedItem(e.target.value)}>
-                <option value="">商品を選択</option>
-                {items.map(item => (
-                  <option key={item.id} value={item.id}>{item.name}（{item.price}円）</option>
-                ))}
-              </select>
-              <button className={styles.addBtn} onClick={addToCart} disabled={!selectedItem}>追加</button>
+            {/* 2ペイン商品セレクター */}
+            <div className={styles.selectorCard}>
+              <div className={styles.paneWrap}>
+                <div className={styles.paneLeft}>
+                  {CATS.map(cat => (
+                    <button
+                      key={cat.id}
+                      className={`${styles.catItem} ${activeCat === cat.id ? styles.catItemActive : ''}`}
+                      onClick={() => { setActiveCat(cat.id); setSelectedItem(null); setDrinkSize('S') }}
+                    >
+                      <span className={styles.catIcon}>{cat.icon}</span>
+                      <span className={styles.catLabel}>{cat.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className={styles.paneRight}>
+                  {activeCat === 'drink' && (
+                    <div className={styles.sizeTabs}>
+                      {['S', 'M', 'L'].map(sz => (
+                        <button
+                          key={sz}
+                          className={`${styles.sizeTab} ${drinkSize === sz ? styles.sizeTabActive : ''}`}
+                          onClick={() => { setDrinkSize(sz); setSelectedItem(null) }}
+                        >{sz}</button>
+                      ))}
+                    </div>
+                  )}
+                  <div className={styles.productList}>
+                    {items
+                      .filter(item =>
+                        activeCat === 'drink'
+                          ? getItemCat(item) === 'drink' && getDrinkSize(item.id) === drinkSize
+                          : getItemCat(item) === activeCat
+                      )
+                      .map(item => (
+                        <button
+                          key={item.id}
+                          className={`${styles.productItem} ${selectedItem === item.id ? styles.productItemSelected : ''}`}
+                          onClick={() => setSelectedItem(item.id)}
+                        >
+                          <span className={styles.productName}>
+                            {item.name.replace(/（期間限定）/g, '')}
+                            {item.name.includes('期間限定') && <span className={styles.limitedBadge}>限定</span>}
+                          </span>
+                          <span className={styles.productPrice}>{item.price}円</span>
+                          {selectedItem === item.id && <span className={styles.checkIcon} />}
+                        </button>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className={styles.selectorBottom}>
+                <span
+                  className={styles.selectorSelectedName}
+                  style={selectedItem ? { color: 'var(--text-primary)', fontWeight: 700 } : {}}
+                >
+                  {selectedItem ? items.find(i => i.id === selectedItem)?.name.replace(/（期間限定）/g, '') : '商品を選んでください'}
+                </span>
+                <div className={styles.qtyCtrl}>
+                  <button className={styles.qBtn} onClick={() => setSelectorQty(q => Math.max(1, q - 1))}>−</button>
+                  <span className={styles.qNum}>{selectorQty}</span>
+                  <button className={styles.qBtn} onClick={() => setSelectorQty(q => q + 1)}>＋</button>
+                </div>
+                <button className={styles.addBtn} onClick={addToCart} disabled={!selectedItem}>追加</button>
+              </div>
             </div>
 
             <div className={styles.cartList}>

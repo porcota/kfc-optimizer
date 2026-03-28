@@ -154,3 +154,217 @@
 .detailFixed { font-size: 12px; color: var(--text-muted); }
 .detailChoice { font-size: 12px; background: #E6F1FB; color: #0C447C; padding: 1px 7px; border-radius: 4px; font-weight: 500; }
 .lunchSetBadge { font-size: 10px; background: #FFF8E1; color: #854F0B; padding: 1px 6px; border-radius: 4px; font-weight: 700; }
+
+/* ===== 2ペイン商品セレクター ===== */
+.selectorCard {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.paneWrap {
+  display: flex;
+  height: 220px;
+}
+
+.paneLeft {
+  width: 34%;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.catItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: none;
+  border-left: 3px solid transparent;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.1s, color 0.1s;
+  width: 100%;
+}
+
+.catItem:hover:not(.catItemActive) {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.catItemActive {
+  background: var(--surface);
+  color: #a00c24;
+  font-weight: 700;
+  border-left-color: #c8102e;
+}
+
+.catIcon {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.catLabel {
+  flex: 1;
+  text-align: left;
+}
+
+.paneRight {
+  flex: 1;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.sizeTabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sizeTab {
+  flex: 1;
+  padding: 7px 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+  transition: color 0.1s;
+}
+
+.sizeTab:hover:not(.sizeTabActive) {
+  color: var(--text-primary);
+  background: var(--bg);
+}
+
+.sizeTabActive {
+  color: #a00c24;
+  border-bottom-color: #c8102e;
+}
+
+.productList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.productItem {
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  gap: 8px;
+  transition: background 0.1s;
+}
+
+.productItem:last-child {
+  border-bottom: none;
+}
+
+.productItem:hover:not(.productItemSelected) {
+  background: var(--bg);
+}
+
+.productItemSelected {
+  background: #fdf0f2;
+}
+
+.productName {
+  font-size: 12px;
+  color: var(--text-primary);
+  flex: 1;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.productItemSelected .productName {
+  color: #a00c24;
+  font-weight: 700;
+}
+
+.productPrice {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.productItemSelected .productPrice {
+  color: #a00c24;
+}
+
+.checkIcon {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #c8102e;
+  flex-shrink: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.checkIcon::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 7px;
+  border-right: 1.5px solid white;
+  border-bottom: 1.5px solid white;
+  transform: rotate(45deg);
+  top: 2px;
+  left: 5px;
+}
+
+.limitedBadge {
+  font-size: 10px;
+  color: #854F0B;
+  background: #FAEEDA;
+  border-radius: 3px;
+  padding: 1px 4px;
+  margin-left: 4px;
+  font-weight: 700;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.selectorBottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.selectorSelectedName {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
