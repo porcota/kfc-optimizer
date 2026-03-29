@@ -1,6 +1,6 @@
 import { useState, useMemo, useDeferredValue, useEffect } from 'react'
 import { useMenu } from './hooks/useMenu'
-import { optimize } from './utils/optimizer'
+import { optimize, suggestAddition, suggestSizeChange } from './utils/optimizer'
 import styles from './App.module.css'
 
 const COLORS = ['#378ADD','#1D9E75','#BA7517','#D4537E','#7F77DD','#D85A30']
@@ -48,6 +48,9 @@ export default function App() {
       return saved ? JSON.parse(saved) : []
     } catch { return [] }
   })
+  const [previousCart, setPreviousCart] = useState(null)
+  const [activeDrinkPicker, setActiveDrinkPicker] = useState(null) // 'S'|'M'|'L'|null（追加用）
+  const [activeSizeChangePicker, setActiveSizeChangePicker] = useState(null) // pickerId|null（変更用）
   const [newMember, setNewMember] = useState('')
   const [addingMember, setAddingMember] = useState(false)
   const [editingMemberId, setEditingMemberId] = useState(null)
@@ -95,12 +98,23 @@ export default function App() {
     return optimize(items, filteredSets, qty, sideGroups)
   }, [items, filteredSets, qty, sideGroups])
 
+  const suggestions = useMemo(() => {
+    if (!items.length || !Object.keys(qty).length) return []
+    return suggestAddition(items, filteredSets, qty, sideGroups)
+  }, [items, filteredSets, qty, sideGroups])
+
+  const sizeChanges = useMemo(() => {
+    if (!items.length || !Object.keys(qty).length) return []
+    return suggestSizeChange(items, filteredSets, qty, sideGroups)
+  }, [items, filteredSets, qty, sideGroups])
+
   const fetchedLabel = fetchedAt
     ? `${fetchedAt.getMonth() + 1}月${fetchedAt.getDate()}日取得`
     : ''
 
   const addToCart = () => {
     if (!selectedItem) return
+    setPreviousCart(null)
     const existing = cart.findIndex(c => c.memberId === selectedMember && c.itemId === selectedItem)
     if (existing >= 0) {
       setCart(prev => prev.map((c, i) => i === existing ? { ...c, qty: c.qty + selectorQty } : c))
@@ -111,13 +125,59 @@ export default function App() {
   }
 
   const changeQty = (id, delta) => {
+    setPreviousCart(null)
     setCart(prev => prev
       .map(c => c.id === id ? { ...c, qty: c.qty + delta } : c)
       .filter(c => c.qty > 0)
     )
   }
 
-  const removeEntry = (id) => setCart(prev => prev.filter(c => c.id !== id))
+  const removeEntry = (id) => { setPreviousCart(null); setCart(prev => prev.filter(c => c.id !== id)) }
+
+  const applyAddition = (item) => {
+    setPreviousCart(cart)
+    const existing = cart.findIndex(c => c.memberId === selectedMember && c.itemId === item.id)
+    if (existing >= 0) {
+      setCart(prev => prev.map((c, i) => i === existing ? { ...c, qty: c.qty + 1 } : c))
+    } else {
+      setCart(prev => [...prev, { id: Date.now(), memberId: selectedMember, itemId: item.id, qty: 1 }])
+    }
+  }
+
+  const applySizeChange = (fromItem, toItem) => {
+    setPreviousCart(cart)
+    setCart(prev => {
+      const idx = prev.findIndex(c => c.itemId === fromItem.id && c.qty > 0)
+      if (idx < 0) return prev
+      const entry = prev[idx]
+      const { memberId } = entry
+      const toIdx = prev.findIndex(c => c.memberId === memberId && c.itemId === toItem.id)
+
+      if (entry.qty === 1) {
+        if (toIdx >= 0) {
+          // toItemが既にある → fromItemを消してtoItemを+1（位置はtoItemのまま）
+          return prev
+            .map((c, i) => i === toIdx ? { ...c, qty: c.qty + 1 } : c)
+            .filter((_, i) => i !== idx)
+        }
+        // fromItemを同じ行のままitemIdだけ書き換え → 位置が変わらない
+        return prev.map((c, i) => i === idx ? { ...c, itemId: toItem.id } : c)
+      }
+
+      // qty > 1: fromItemを1減らし、toItemをすぐ下に挿入
+      if (toIdx >= 0) {
+        return prev.map((c, i) =>
+          i === idx ? { ...c, qty: c.qty - 1 } :
+          i === toIdx ? { ...c, qty: c.qty + 1 } : c
+        )
+      }
+      const next = prev.map((c, i) => i === idx ? { ...c, qty: c.qty - 1 } : c)
+      next.splice(idx + 1, 0, { id: Date.now(), memberId, itemId: toItem.id, qty: 1 })
+      return next
+    })
+  }
+
+  const undoSuggestion = () => { setCart(previousCart); setPreviousCart(null) }
 
   const removeMember = (id) => {
     setMembers(prev => prev.filter(m => m.id !== id))
@@ -394,7 +454,7 @@ export default function App() {
               )}
             </div>
             {cart.length > 0 && (
-              <button className={styles.clearBtn} onClick={() => setCart([])}>すべてクリア</button>
+              <button className={styles.clearBtn} onClick={() => { setCart([]); setPreviousCart(null) }}>すべてクリア</button>
             )}
           </div>
 
@@ -509,6 +569,101 @@ export default function App() {
                   )}
                 </div>
 
+                {suggestions.length > 0 && (
+                  <div className={styles.suggestionArea}>
+                    <p className={styles.suggestionTitle}>💡 もっとお得にするには</p>
+                    {suggestions.map(s => (
+                      <div key={s.item.id} className={styles.suggestionRow}>
+                        <span className={styles.suggestionName}>
+                          {s.drinkSize ? `ドリンク${s.drinkSize}` : s.item.name.replace(/（期間限定）/g, '')}をあと1品追加すると
+                        </span>
+                        <div className={styles.suggestionRowBottom}>
+                          <span className={styles.suggestionBenefit}>
+                            実質{s.netCost.toLocaleString()}円で{s.savingsGain.toLocaleString()}円お得
+                          </span>
+                          {s.drinkSize ? (
+                            <button
+                              className={`${styles.suggestionBtn} ${activeDrinkPicker === s.drinkSize ? styles.suggestionBtnActive : ''}`}
+                              onClick={() => setActiveDrinkPicker(activeDrinkPicker === s.drinkSize ? null : s.drinkSize)}
+                            >追加 ▾</button>
+                          ) : (
+                            <button className={styles.suggestionBtn} onClick={() => applyAddition(s.item)}>追加</button>
+                          )}
+                        </div>
+                        {s.drinkSize && activeDrinkPicker === s.drinkSize && (
+                          <div className={styles.drinkPicker}>
+                            {items
+                              .filter(i => i.category === 'ドリンク' && getDrinkSize(i.id) === s.drinkSize)
+                              .map(drink => (
+                                <button
+                                  key={drink.id}
+                                  className={styles.drinkPickerItem}
+                                  onClick={() => { applyAddition(drink); setActiveDrinkPicker(null) }}
+                                >
+                                  {drink.name.replace(/（期間限定）/g, '')}
+                                </button>
+                              ))
+                            }
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {sizeChanges.length > 0 && (
+                  <div className={styles.suggestionArea}>
+                    <p className={styles.suggestionTitle}>↕️ サイズ変更でお得に</p>
+                    {sizeChanges.map(s => {
+                      const fromName = s.fromDrinkSize ? `ドリンク${s.fromDrinkSize}` : s.fromItem.name.replace(/（期間限定）/g, '')
+                      const toName = s.toDrinkSize ? `ドリンク${s.toDrinkSize}` : s.toItem.name.replace(/（期間限定）/g, '')
+                      const diffLabel = s.priceDiff > 0 ? `+${s.priceDiff}円` : s.priceDiff < 0 ? `${s.priceDiff}円` : '同額'
+                      const pickerId = `${s.fromItem.id}→${s.toDrinkSize}`
+                      const pickerOpen = activeSizeChangePicker === pickerId
+                      return (
+                        <div key={`${s.fromItem.id}→${s.toItem.id}`} className={styles.suggestionRow}>
+                          <span className={styles.suggestionName}>
+                            {fromName}を{toName}に変更すると
+                          </span>
+                          <div className={styles.suggestionRowBottom}>
+                            <span className={styles.suggestionBenefit}>
+                              差額{diffLabel}で{s.savingsGain.toLocaleString()}円お得
+                            </span>
+                            {s.needsPicker ? (
+                              <button
+                                className={`${styles.suggestionBtn} ${pickerOpen ? styles.suggestionBtnActive : ''}`}
+                                onClick={() => setActiveSizeChangePicker(pickerOpen ? null : pickerId)}
+                              >変更 ▾</button>
+                            ) : (
+                              <button className={styles.suggestionBtn} onClick={() => applySizeChange(s.fromItem, s.toItem)}>変更</button>
+                            )}
+                          </div>
+                          {s.needsPicker && pickerOpen && (
+                            <div className={styles.drinkPicker}>
+                              {items
+                                .filter(i => i.category === 'ドリンク' && getDrinkSize(i.id) === s.toDrinkSize)
+                                .map(drink => (
+                                  <button key={drink.id} className={styles.drinkPickerItem}
+                                    onClick={() => { applySizeChange(s.fromItem, drink); setActiveSizeChangePicker(null) }}
+                                  >
+                                    {drink.name.replace(/（期間限定）/g, '')}
+                                  </button>
+                                ))
+                              }
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {previousCart && (
+                  <div className={styles.undoBar}>
+                    <span>カートを変更しました</span>
+                    <button className={styles.undoBtn} onClick={undoSuggestion}>元に戻す</button>
+                  </div>
+                )}
 
               </div>
             )}
