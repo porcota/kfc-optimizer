@@ -10,7 +10,7 @@
 - セット＋単品の全組み合わせを総当たりで最安構成を計算
 - ランチメニュー（10時〜15時）の切り替え対応
 - 期間限定商品は「限定」バッジで表示
-- メニューデータはGoogleスプレッドシートから自動取得
+- もっとお得にするための追加・サイズ変更の提案（1回のundo対応）
 - スマホ・PC両対応（レスポンシブ）
 - 注文内容をブラウザに自動保存（localStorage）
 - PWA対応（ホーム画面に追加可能）
@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-ブラウザで http://localhost:5173 を開く。
+ブラウザで http://localhost:5173/kfc-optimizer/ を開く。
 
 ## デプロイ
 
@@ -36,28 +36,38 @@ git push
 
 ## メニューデータの更新
 
-価格改定やメニュー変更があったときはGoogleスプレッドシートを直接編集してください。
-アプリ起動時に自動取得するためコードの変更は不要です。
+価格改定やメニュー変更があったときは `public/menu.json` を直接編集してください。
 
-**スプレッドシート（要権限）**:
-https://docs.google.com/spreadsheets/d/e/2PACX-1vTT85tRBx7y35J0cQcaxIlwDApiBOpHaRbLHev_fCMSOs-tGN3qJ1iCQknvY5H_gA/
+### menu.json の構造
 
-### シート構成
+```json
+{
+  "updated": "YYYY/MM/DD",
+  "items": [
+    { "id": "chicken_original", "name": "オリジナルチキン 1ピース", "price": 310, "category": "チキン" }
+  ],
+  "sets": [
+    {
+      "id": "set_id",
+      "name": "セット名",
+      "price": 1000,
+      "contains": { "item_id": 1 },
+      "freeGroups": [{ "groupId": "chicken", "count": 1 }]
+    }
+  ],
+  "sideGroups": {
+    "chicken": [{ "itemId": "chicken_original", "extra": 0 }]
+  }
+}
+```
 
-| シート | 内容 |
-|---|---|
-| 単品 | 商品名・id・価格 |
-| セット | セット名・id・価格・含まれる単品 |
-| サイドグループ | トクトクパックなどの自由選択サイドの定義 |
+### セット内容の記法（contains / freeGroups）
 
-### セット内容の記法
-
-- 固定アイテム: `id:数量`（例: `fillet:1`）
-- 自由選択: `@グループid:数量`（例: `@chicken:2, @potato:1`）
-- ランチメニューのid: `lunch_` プレフィックス
+- 固定アイテム: `contains` に `{ "item_id": 数量 }` で記述
+- 自由選択: `freeGroups` に `{ "groupId": "グループid", "count": 数量 }` で記述
 
 ## 技術スタック
 
 - React + Vite
 - GitHub Pages（ホスティング）
-- Google スプレッドシート（メニューデータ）
+- `public/menu.json`（メニューデータ）

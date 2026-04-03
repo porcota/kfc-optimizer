@@ -617,7 +617,6 @@ export default function App() {
                     {sizeChanges.map(s => {
                       const fromName = s.fromDrinkSize ? `ドリンク${s.fromDrinkSize}` : s.fromItem.name.replace(/（期間限定）/g, '')
                       const toName = s.toDrinkSize ? `ドリンク${s.toDrinkSize}` : s.toItem.name.replace(/（期間限定）/g, '')
-                      const diffLabel = s.priceDiff > 0 ? `+${s.priceDiff}円` : s.priceDiff < 0 ? `${s.priceDiff}円` : '同額'
                       const pickerId = `${s.fromItem.id}→${s.toDrinkSize}`
                       const pickerOpen = activeSizeChangePicker === pickerId
                       return (
@@ -627,7 +626,7 @@ export default function App() {
                           </span>
                           <div className={styles.suggestionRowBottom}>
                             <span className={styles.suggestionBenefit}>
-                              差額{diffLabel}で{s.savingsGain.toLocaleString()}円お得
+                              合計が{result.total.toLocaleString()}円→{(result.total - s.netBenefit).toLocaleString()}円に
                             </span>
                             {s.needsPicker ? (
                               <button
