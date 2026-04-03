@@ -222,7 +222,7 @@ export default function App() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.logoWrap}>
-          <img src="./icon-192.png" alt="まとめてケンタさん" width="52" height="52" style={{ display: 'block' }} />
+          <img src="./icon-192.png" alt="まとめてケンタさん" style={{ display: 'block', width: '100%', height: '100%' }} />
         </div>
         <div style={{ flex: 1 }}>
           <h1 className={styles.title}>まとめてケンタさん</h1>
