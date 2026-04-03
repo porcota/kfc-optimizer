@@ -1,0 +1,466 @@
+{
+  "updated": "2026/04/01",
+  "items": [
+    { "id": "original_chicken",      "name": "オリジナルチキン",                              "price": 310,  "category": "チキン" },
+    { "id": "boneless_kentucky",     "name": "骨なしケンタッキー",                            "price": 310,  "category": "チキン" },
+    { "id": "marukajiri_kenta",      "name": "まるかじりケンタ（期間限定）",                  "price": 290,  "category": "チキン" },
+    { "id": "barrel_10pc",           "name": "オリジナルチキン10ピースバーレル",               "price": 3100, "category": "チキン" },
+
+    { "id": "fillet",                "name": "チキンフィレバーガー",                          "price": 440,  "category": "バーガー" },
+    { "id": "spicy_fillet",          "name": "辛口チキンフィレバーガー",                      "price": 470,  "category": "バーガー" },
+    { "id": "cheese_fillet",         "name": "チーズチキンフィレバーガー",                    "price": 470,  "category": "バーガー" },
+    { "id": "pepper_twister",        "name": "ペッパーマヨツイスター",                        "price": 380,  "category": "バーガー" },
+    { "id": "double_fillet",         "name": "ダブルチキンフィレバーガー",                    "price": 680,  "category": "バーガー" },
+    { "id": "katsu_burger",          "name": "和風チキンカツバーガー",                        "price": 440,  "category": "バーガー" },
+    { "id": "teriyaki_twister",      "name": "てりやきツイスター",                            "price": 380,  "category": "バーガー" },
+    { "id": "tatsuta_burger",        "name": "ケンタの鶏竜田バーガー（期間限定）",            "price": 540,  "category": "バーガー" },
+    { "id": "tatsuta_negi_burger",   "name": "ケンタの鶏竜田バーガー香味ネギソース（期間限定）","price": 590, "category": "バーガー" },
+
+    { "id": "potato_s",              "name": "ポテトS",                                       "price": 290,  "category": "サイド" },
+    { "id": "potato_l",              "name": "ポテトL",                                       "price": 430,  "category": "サイド" },
+    { "id": "potato_box",            "name": "ポテトBOX",                                     "price": 910,  "category": "サイド" },
+    { "id": "crunch_potato_s",       "name": "カーネルクランチポテトS（期間限定）",            "price": 290,  "category": "サイド" },
+    { "id": "crunch_potato_l",       "name": "カーネルクランチポテトL（期間限定）",            "price": 430,  "category": "サイド" },
+    { "id": "crunch_potato_box",     "name": "カーネルクランチポテトBOX（期間限定）",          "price": 910,  "category": "サイド" },
+    { "id": "biscuit",               "name": "ビスケット",                                    "price": 290,  "category": "サイド" },
+    { "id": "crunch_crispy",         "name": "カーネルクリスピー",                            "price": 290,  "category": "サイド" },
+    { "id": "choco_pie",             "name": "チョコパイ",                                    "price": 290,  "category": "サイド" },
+    { "id": "coleslaw_s",            "name": "コールスローS",                                 "price": 290,  "category": "サイド" },
+    { "id": "coleslaw_m",            "name": "コールスローM",                                 "price": 390,  "category": "サイド" },
+    { "id": "nugget_5",              "name": "ナゲット5ピース",                               "price": 480,  "category": "サイド" },
+
+    { "id": "lemonade_s",            "name": "レモネードS",                                   "price": 250,  "category": "ドリンク" },
+    { "id": "lemonade_orange_s",     "name": "レモネードオレンジS",                           "price": 250,  "category": "ドリンク" },
+    { "id": "pepsi_s",               "name": "ペプシコーラS",                                 "price": 250,  "category": "ドリンク" },
+    { "id": "melon_soda_s",          "name": "メロンソーダS",                                 "price": 250,  "category": "ドリンク" },
+    { "id": "calpis_s",              "name": "ごくごくカルピスS",                             "price": 250,  "category": "ドリンク" },
+    { "id": "ginger_ale_s",          "name": "ジンジャーエールS",                             "price": 250,  "category": "ドリンク" },
+    { "id": "oolong_s",              "name": "サントリー烏龍茶S",                             "price": 250,  "category": "ドリンク" },
+    { "id": "iced_tea_s",            "name": "アイスティー(無糖)S",                           "price": 250,  "category": "ドリンク" },
+    { "id": "iced_coffee_s",         "name": "湧き水コーヒーS",                               "price": 250,  "category": "ドリンク" },
+
+    { "id": "lemonade_m",            "name": "レモネードM",                                   "price": 270,  "category": "ドリンク" },
+    { "id": "lemonade_orange_m",     "name": "レモネードオレンジM",                           "price": 270,  "category": "ドリンク" },
+    { "id": "pepsi_m",               "name": "ペプシコーラM",                                 "price": 270,  "category": "ドリンク" },
+    { "id": "melon_soda_m",          "name": "メロンソーダM",                                 "price": 270,  "category": "ドリンク" },
+    { "id": "calpis_m",              "name": "ごくごくカルピスM",                             "price": 270,  "category": "ドリンク" },
+    { "id": "ginger_ale_m",          "name": "ジンジャーエールM",                             "price": 270,  "category": "ドリンク" },
+    { "id": "oolong_m",              "name": "サントリー烏龍茶M",                             "price": 270,  "category": "ドリンク" },
+    { "id": "iced_tea_m",            "name": "アイスティー(無糖)M",                           "price": 270,  "category": "ドリンク" },
+    { "id": "iced_coffee_m",         "name": "湧き水コーヒーM",                               "price": 270,  "category": "ドリンク" },
+    { "id": "hot_coffee_m",          "name": "ホットコーヒーM",                               "price": 270,  "category": "ドリンク" },
+    { "id": "rich_coffee_m",         "name": "挽きたてリッチコーヒーM",                       "price": 270,  "category": "ドリンク" },
+    { "id": "hot_tea_m",             "name": "リプトンホットティーM",                         "price": 270,  "category": "ドリンク" },
+
+    { "id": "lemonade_l",            "name": "レモネードL",                                   "price": 320,  "category": "ドリンク" },
+    { "id": "lemonade_orange_l",     "name": "レモネードオレンジL",                           "price": 320,  "category": "ドリンク" },
+    { "id": "pepsi_l",               "name": "ペプシコーラL",                                 "price": 320,  "category": "ドリンク" },
+    { "id": "melon_soda_l",          "name": "メロンソーダL",                                 "price": 320,  "category": "ドリンク" },
+    { "id": "calpis_l",              "name": "ごくごくカルピスL",                             "price": 320,  "category": "ドリンク" },
+    { "id": "ginger_ale_l",          "name": "ジンジャーエールL",                             "price": 320,  "category": "ドリンク" },
+    { "id": "oolong_l",              "name": "サントリー烏龍茶L",                             "price": 320,  "category": "ドリンク" },
+    { "id": "iced_tea_l",            "name": "アイスティー(無糖)L",                           "price": 320,  "category": "ドリンク" },
+    { "id": "iced_coffee_l",         "name": "湧き水コーヒーL",                               "price": 320,  "category": "ドリンク" }
+  ],
+
+  "sets": [
+    {
+      "id": "set_fillet",
+      "name": "チキンフィレバーガーセット",
+      "price": 850,
+      "contains": { "fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_spicy",
+      "name": "辛口チキンフィレバーガーセット",
+      "price": 880,
+      "contains": { "spicy_fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_cheese",
+      "name": "チーズチキンフィレバーガーセット",
+      "price": 880,
+      "contains": { "cheese_fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_twister_p",
+      "name": "ペッパーマヨツイスターセット",
+      "price": 790,
+      "contains": { "pepper_twister": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_twister_t",
+      "name": "てりやきツイスターセット",
+      "price": 790,
+      "contains": { "teriyaki_twister": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_double",
+      "name": "ダブルチキンフィレバーガーセット",
+      "price": 1090,
+      "contains": { "double_fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_katsu",
+      "name": "和風チキンカツバーガーセット",
+      "price": 850,
+      "contains": { "katsu_burger": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_2pc",
+      "name": "オリジナルチキン2ピースセット",
+      "price": 1030,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 2 }, { "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_tatsuta",
+      "name": "ケンタの鶏竜田バーガーセット（期間限定）",
+      "price": 950,
+      "contains": { "tatsuta_burger": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_tatsuta_negi",
+      "name": "ケンタの鶏竜田バーガー香味ネギソースセット（期間限定）",
+      "price": 1000,
+      "contains": { "tatsuta_negi_burger": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+
+    {
+      "id": "set_fillet_yoku",
+      "name": "チキンフィレバーガーよくばりセット",
+      "price": 1150,
+      "contains": { "fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_spicy_yoku",
+      "name": "辛口チキンフィレバーガーよくばりセット",
+      "price": 1180,
+      "contains": { "spicy_fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_cheese_yoku",
+      "name": "チーズチキンフィレバーガーよくばりセット",
+      "price": 1180,
+      "contains": { "cheese_fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_double_yoku",
+      "name": "ダブルチキンフィレバーガーよくばりセット",
+      "price": 1390,
+      "contains": { "double_fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_katsu_yoku",
+      "name": "和風チキンカツバーガーよくばりセット",
+      "price": 1150,
+      "contains": { "katsu_burger": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_twister_p_yoku",
+      "name": "ペッパーマヨツイスターよくばりセット",
+      "price": 1090,
+      "contains": { "pepper_twister": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_twister_t_yoku",
+      "name": "てりやきツイスターよくばりセット",
+      "price": 1090,
+      "contains": { "teriyaki_twister": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_3pc_yoku",
+      "name": "オリジナルチキン3ピースよくばりセット",
+      "price": 1330,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 3 }, { "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_tatsuta_yoku",
+      "name": "ケンタの鶏竜田バーガーよくばりセット（期間限定）",
+      "price": 1250,
+      "contains": { "tatsuta_burger": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "set_tatsuta_negi_yoku",
+      "name": "ケンタの鶏竜田バーガー香味ネギソースよくばりセット（期間限定）",
+      "price": 1300,
+      "contains": { "tatsuta_negi_burger": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+
+    {
+      "id": "pack4",
+      "name": "トクトクパック4ピース",
+      "price": 1540,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 4 }, { "groupId": "side", "count": 2 }]
+    },
+    {
+      "id": "pack6",
+      "name": "トクトクパック6ピース",
+      "price": 2190,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 6 }, { "groupId": "side", "count": 3 }]
+    },
+    {
+      "id": "pack8",
+      "name": "トクトクパック8ピース",
+      "price": 2940,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 8 }, { "groupId": "side", "count": 4 }]
+    },
+
+    {
+      "id": "set_pote_chiki1",
+      "name": "ポテチキセット（期間限定）",
+      "price": 500,
+      "contains": { "marukajiri_kenta": 1, "crunch_potato_s": 1 },
+      "freeGroups": []
+    },
+    {
+      "id": "set_pote_chiki2",
+      "name": "ポテチキ2ピースパック（期間限定）",
+      "price": 980,
+      "contains": { "marukajiri_kenta": 2, "crunch_potato_s": 2 },
+      "freeGroups": []
+    },
+    {
+      "id": "set_pote_chiki4",
+      "name": "ポテチキ4ピースパック（期間限定）",
+      "price": 1800,
+      "contains": { "marukajiri_kenta": 4, "crunch_potato_box": 1 },
+      "freeGroups": []
+    },
+
+    {
+      "id": "pack_torinohi",
+      "name": "とりの日パック",
+      "price": 1250,
+      "contains": {},
+      "freeGroups": []
+    },
+
+    {
+      "id": "kids_nugget_set",
+      "name": "キッズナゲットセット",
+      "price": 590,
+      "contains": {},
+      "freeGroups": []
+    },
+    {
+      "id": "kids_chicken_set",
+      "name": "キッズオリジナルチキンセット",
+      "price": 590,
+      "contains": {},
+      "freeGroups": []
+    },
+
+    {
+      "id": "lunch_fillet_combi",
+      "name": "ランチ チキンフィレバーガーコンビ",
+      "price": 550,
+      "contains": { "fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }]
+    },
+    {
+      "id": "lunch_katsu_combi",
+      "name": "ランチ 和風チキンカツバーガーコンビ",
+      "price": 550,
+      "contains": { "katsu_burger": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }]
+    },
+    {
+      "id": "lunch_chiki_biscuit",
+      "name": "ランチ チキン&ビスケットセット",
+      "price": 550,
+      "contains": { "original_chicken": 1, "biscuit": 1 },
+      "freeGroups": [{ "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_fillet",
+      "name": "ランチ チキンフィレバーガーセット",
+      "price": 690,
+      "contains": { "fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_spicy",
+      "name": "ランチ 辛口チキンフィレバーガーセット",
+      "price": 720,
+      "contains": { "spicy_fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_cheese",
+      "name": "ランチ チーズチキンフィレバーガーセット",
+      "price": 720,
+      "contains": { "cheese_fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_double",
+      "name": "ランチ ダブルチキンフィレバーガーセット",
+      "price": 930,
+      "contains": { "double_fillet": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_katsu",
+      "name": "ランチ 和風チキンカツバーガーセット",
+      "price": 690,
+      "contains": { "katsu_burger": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_twister_p",
+      "name": "ランチ ペッパーマヨツイスターセット",
+      "price": 650,
+      "contains": { "pepper_twister": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_twister_t",
+      "name": "ランチ てりやきツイスターセット",
+      "price": 650,
+      "contains": { "teriyaki_twister": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_2pc",
+      "name": "ランチ オリジナルチキン2ピースセット",
+      "price": 890,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 2 }, { "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_fillet_yoku",
+      "name": "ランチ チキンフィレバーガーよくばりセット",
+      "price": 990,
+      "contains": { "fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_spicy_yoku",
+      "name": "ランチ 辛口チキンフィレバーガーよくばりセット",
+      "price": 1020,
+      "contains": { "spicy_fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_cheese_yoku",
+      "name": "ランチ チーズチキンフィレバーガーよくばりセット",
+      "price": 1020,
+      "contains": { "cheese_fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_double_yoku",
+      "name": "ランチ ダブルチキンフィレバーガーよくばりセット",
+      "price": 1230,
+      "contains": { "double_fillet": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_katsu_yoku",
+      "name": "ランチ 和風チキンカツバーガーよくばりセット",
+      "price": 990,
+      "contains": { "katsu_burger": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_twister_p_yoku",
+      "name": "ランチ ペッパーマヨツイスターよくばりセット",
+      "price": 950,
+      "contains": { "pepper_twister": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_twister_t_yoku",
+      "name": "ランチ てりやきツイスターよくばりセット",
+      "price": 950,
+      "contains": { "teriyaki_twister": 1, "original_chicken": 1 },
+      "freeGroups": [{ "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    },
+    {
+      "id": "lunch_3pc_yoku",
+      "name": "ランチ オリジナルチキン3ピースよくばりセット",
+      "price": 1190,
+      "contains": {},
+      "freeGroups": [{ "groupId": "chicken", "count": 3 }, { "groupId": "potato", "count": 1 }, { "groupId": "drink_m", "count": 1 }]
+    }
+  ],
+
+  "sideGroups": {
+    "chicken": [
+      { "itemId": "original_chicken",  "extra": 0 },
+      { "itemId": "boneless_kentucky", "extra": 0 }
+    ],
+    "side": [
+      { "itemId": "crunch_potato_s",  "extra": 0 },
+      { "itemId": "crunch_potato_l",  "extra": 140 },
+      { "itemId": "biscuit",          "extra": 0 },
+      { "itemId": "crunch_crispy",    "extra": 0 },
+      { "itemId": "choco_pie",        "extra": 0 },
+      { "itemId": "coleslaw_s",       "extra": 0 },
+      { "itemId": "coleslaw_m",       "extra": 100 }
+    ],
+    "potato": [
+      { "itemId": "crunch_potato_s",  "extra": 0 },
+      { "itemId": "crunch_potato_l",  "extra": 140 }
+    ],
+    "drink_s": [
+      { "itemId": "lemonade_s",       "extra": 0 },
+      { "itemId": "lemonade_orange_s","extra": 0 },
+      { "itemId": "pepsi_s",          "extra": 0 },
+      { "itemId": "melon_soda_s",     "extra": 0 },
+      { "itemId": "calpis_s",         "extra": 0 },
+      { "itemId": "ginger_ale_s",     "extra": 0 },
+      { "itemId": "oolong_s",         "extra": 0 },
+      { "itemId": "iced_tea_s",       "extra": 0 },
+      { "itemId": "iced_coffee_s",    "extra": 0 }
+    ],
+    "drink_m": [
+      { "itemId": "lemonade_m",       "extra": 0 },
+      { "itemId": "lemonade_orange_m","extra": 0 },
+      { "itemId": "pepsi_m",          "extra": 0 },
+      { "itemId": "melon_soda_m",     "extra": 0 },
+      { "itemId": "calpis_m",         "extra": 0 },
+      { "itemId": "ginger_ale_m",     "extra": 0 },
+      { "itemId": "oolong_m",         "extra": 0 },
+      { "itemId": "iced_tea_m",       "extra": 0 },
+      { "itemId": "iced_coffee_m",    "extra": 0 },
+      { "itemId": "hot_coffee_m",     "extra": 0 },
+      { "itemId": "rich_coffee_m",    "extra": 0 },
+      { "itemId": "hot_tea_m",        "extra": 0 }
+    ],
+    "drink_l": [
+      { "itemId": "lemonade_l",       "extra": 50 },
+      { "itemId": "lemonade_orange_l","extra": 50 },
+      { "itemId": "pepsi_l",          "extra": 50 },
+      { "itemId": "melon_soda_l",     "extra": 50 },
+      { "itemId": "calpis_l",         "extra": 50 },
+      { "itemId": "ginger_ale_l",     "extra": 50 },
+      { "itemId": "oolong_l",         "extra": 50 },
+      { "itemId": "iced_tea_l",       "extra": 50 },
+      { "itemId": "iced_coffee_l",    "extra": 50 }
+    ]
+  }
+}
