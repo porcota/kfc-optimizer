@@ -669,10 +669,13 @@ export default function App() {
 
       {status === 'success' && (
         <div className={styles.footer}>
-          <button className={styles.reloadBtn} onClick={reload}>メニューを再読み込み</button>
-          <a href="https://www.kfc.co.jp/menu" target="_blank" rel="noopener noreferrer" className={styles.menuLink}>
-            KFC公式メニューを確認 →
-          </a>
+          <div className={styles.footerButtons}>
+            <button className={styles.reloadBtn} onClick={reload}>メニューを再読み込み</button>
+            <a href="https://www.kfc.co.jp/menu" target="_blank" rel="noopener noreferrer" className={styles.menuLink}>
+              KFC公式メニューを確認 →
+            </a>
+          </div>
+          <p className={styles.disclaimer}>※ 非公式アプリです。KFC Japan とは無関係です。</p>
         </div>
       )}
     </div>
