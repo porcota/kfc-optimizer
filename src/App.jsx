@@ -222,10 +222,7 @@ export default function App() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.logoWrap}>
-          <svg width="52" height="52" viewBox="0 0 52 52">
-            <text x="26" y="26" textAnchor="middle" fontFamily="Georgia, serif" fontSize="13" fontWeight="700" fill="white" letterSpacing="1.5">KFC</text>
-            <text x="26" y="41" textAnchor="middle" fontFamily="'Hiragino Sans', sans-serif" fontSize="14" fontWeight="700" fill="white">算</text>
-          </svg>
+          <img src="./icon-192.png" alt="まとめてケンタさん" width="52" height="52" style={{ display: 'block' }} />
         </div>
         <div style={{ flex: 1 }}>
           <h1 className={styles.title}>まとめてケンタさん</h1>
