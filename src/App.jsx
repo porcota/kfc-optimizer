@@ -88,6 +88,18 @@ export default function App() {
     return q
   }, [deferredCart])
 
+  const availableCats = useMemo(() => {
+    if (!items.length) return CATS
+    const catIds = new Set(items.map(item => getItemCat(item)))
+    return CATS.filter(cat => catIds.has(cat.id))
+  }, [items])
+
+  useEffect(() => {
+    if (availableCats.length && !availableCats.find(c => c.id === activeCat)) {
+      setActiveCat(availableCats[0].id)
+    }
+  }, [availableCats, activeCat])
+
   const filteredSets = useMemo(() => {
     if (isLunch) return sets
     return sets.filter(s => !s.id.startsWith('lunch_'))
@@ -324,7 +336,7 @@ export default function App() {
             <div className={styles.selectorCard}>
               <div className={styles.paneWrap}>
                 <div className={styles.paneLeft}>
-                  {CATS.map(cat => (
+                  {availableCats.map(cat => (
                     <button
                       key={cat.id}
                       className={`${styles.catItem} ${activeCat === cat.id ? styles.catItemActive : ''}`}
