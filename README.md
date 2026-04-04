@@ -2,7 +2,7 @@
 
 みんなの注文、最安セットで。家族やグループのメンバーごとに注文を入力すると、セットと単品の最安の組み合わせを自動計算します。
 
-🌐 **公開URL**: https://porcota.github.io/kfc-optimizer/
+🌐 **公開URL**: https://porcota.github.io/kentasan/
 
 ## 機能
 
@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-ブラウザで http://localhost:5173/kfc-optimizer/ を開く。
+ブラウザで http://localhost:5173/kentasan/ を開く。
 
 ## デプロイ
 
